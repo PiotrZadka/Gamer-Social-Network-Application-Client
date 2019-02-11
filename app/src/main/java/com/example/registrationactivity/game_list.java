@@ -1,8 +1,8 @@
 package com.example.registrationactivity;
-import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -20,19 +20,20 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-
+import java.util.Iterator;
 
 
 public class game_list extends AppCompatActivity {
 
     ArrayList gamesArray = new ArrayList();
+    ArrayList platformArray = new ArrayList();
     SearchView searchGame;
     Button clickMe;
     ListView gameList;
+    ArrayAdapter adapter;
 
-    // https://api.thegamesdb.net/key.php
+    // API FOR -> https://api.thegamesdb.net/key.php
     String API_KEY = "eb8118a629a5c370b1ec29b2a9c6b24730daa44219efdc56756425747ba195fd ";
-    String URL = "https://api.thegamesdb.net/Games/ByGameName?apikey="+API_KEY+"&name=Zelda";
 
 
 
@@ -45,35 +46,49 @@ public class game_list extends AppCompatActivity {
         clickMe = findViewById(R.id.retrieveGames);
         searchGame = findViewById(R.id.searchGame);
         searchGame.setQueryHint("Search game");
+
         clickMe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(game_list.this, "CLICKING", Toast.LENGTH_SHORT).show();
-                fetchGames();
 
+                // Get name to search
+                String gameName = searchGame.getQuery().toString();
 
+                // Search for games
+                // https://api.thegamesdb.net/
+                String URL = "https://api.thegamesdb.net/Games/ByGameName?apikey="+API_KEY+"&name="+gameName;
+                fetchGames(URL);
+                System.out.println(getGamePlatforms());
             }
         });
 
 
     }
 
-    private void fetchGames(){
+    // Browse online database for a specified game
+    private void fetchGames(String URL){
         StringRequest stringRequest = new StringRequest(Request.Method.GET, URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try{
+                            // Extract game data from jsonObject
                             JSONObject jsonObject = new JSONObject(response);
                             String jsonRESULT = jsonObject.getString("data");
                             jsonObject = new JSONObject(jsonRESULT);
                             JSONArray resultsArray = jsonObject.getJSONArray("games");
+
+                            // Itterate through json object and add game titles to array
                             for(int i = 0; i<resultsArray.length(); i++){
                                 JSONObject game_title = resultsArray.getJSONObject(i);
-                                gamesArray.add(game_title.getString("game_title"));
+
+                                gamesArray.add(game_title.getString("game_title")+", "+game_title.get("platform"));
                             }
-                            // Print array list of games
-                            System.out.println(gamesArray);
+
+                            adapter = new ArrayAdapter(game_list.this,android.R.layout.simple_dropdown_item_1line,gamesArray);
+                            gameList.setAdapter(adapter);
+                            adapter.notifyDataSetChanged();
+
 
 
 
@@ -92,6 +107,36 @@ public class game_list extends AppCompatActivity {
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
+        gamesArray.clear();
     }
 
+    private ArrayList getGamePlatforms(){
+        String URL = "https://api.thegamesdb.net/Platforms?apikey="+API_KEY;
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try{
+                            // Extract game data from jsonObject
+                            JSONObject jsonObject = new JSONObject(response);
+                            //
+
+
+
+                        }catch (JSONException e) {
+                            System.out.println("ERROR "+e);
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.print(error);
+                    }
+                });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+        return platformArray;
+    }
 }
