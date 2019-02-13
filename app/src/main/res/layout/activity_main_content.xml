@@ -8,6 +8,20 @@
     tools:context=".main_content">
 
     <ImageView
+        android:id="@+id/chatImage"
+        android:layout_width="132dp"
+        android:layout_height="133dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="233dp"
+        android:layout_marginTop="299dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="293dp"
+        app:srcCompat="@drawable/chat" />
+
+    <ImageView
         android:id="@+id/userProfileImage"
         android:layout_width="132dp"
         android:layout_height="133dp"
@@ -15,11 +29,25 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="102dp"
         android:layout_marginEnd="227dp"
-        android:layout_marginBottom="443dp"
+        android:layout_marginBottom="491dp"
         app:srcCompat="@drawable/profile" />
+
+    <ImageView
+        android:id="@+id/usersProfilesImage"
+        android:layout_width="132dp"
+        android:layout_height="133dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="296dp"
+        android:layout_marginEnd="224dp"
+        android:layout_marginBottom="296dp"
+        app:srcCompat="@drawable/users" />
 
     <ImageView
         android:id="@+id/gameListImage"
@@ -30,9 +58,9 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="240dp"
-        android:layout_marginTop="150dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="440dp"
+        android:layout_marginTop="102dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="488dp"
         app:srcCompat="@drawable/gameicon" />
 
     <Button
@@ -42,9 +70,9 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="156dp"
-        android:layout_marginTop="657dp"
-        android:layout_marginEnd="167dp"
+        android:layout_marginStart="160dp"
+        android:layout_marginTop="596dp"
+        android:layout_marginEnd="160dp"
         android:text="Logout" />
 
     <TextView
@@ -54,9 +82,9 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="140dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="140dp"
+        android:layout_marginStart="141dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginEnd="139dp"
         android:text="Welcome"
         android:textSize="30sp" />
 
@@ -67,9 +95,9 @@
         android:layout_below="@+id/welcomeLabel"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="126dp"
+        android:layout_marginStart="127dp"
         android:layout_marginTop="11dp"
-        android:layout_marginEnd="126dp"
+        android:layout_marginEnd="125dp"
         android:gravity="center"
         android:text="username"
         android:textSize="24sp" />
@@ -81,11 +109,45 @@
         android:layout_alignStart="@+id/userProfileImage"
         android:layout_alignEnd="@+id/userProfileImage"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="39dp"
-        android:layout_marginTop="306dp"
-        android:layout_marginEnd="36dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="258dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="449dp"
         android:gravity="center"
         android:text="Profile"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/usersLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/userProfileImage"
+        android:layout_alignEnd="@+id/userProfileImage"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="456dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="251dp"
+        android:gravity="center"
+        android:text="Users"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/usersLabel2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/chatImage"
+        android:layout_alignEnd="@+id/chatImage"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="456dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="251dp"
+        android:gravity="center"
+        android:text="Chat"
         android:textSize="18sp" />
 
     <TextView
@@ -95,9 +157,11 @@
         android:layout_alignStart="@+id/gameListImage"
         android:layout_alignEnd="@+id/gameListImage"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="307dp"
-        android:layout_marginEnd="16dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="259dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="448dp"
         android:gravity="center"
         android:text="Game List"
         android:textSize="18sp" />
@@ -109,10 +173,38 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="37dp"
-        android:layout_marginTop="577dp"
-        android:layout_marginEnd="238dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="540dp"
+        android:layout_marginEnd="228dp"
         android:text="Registered Users:" />
+
+    <TextView
+        android:id="@+id/annotation"
+        android:layout_width="346dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="655dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="40dp"
+        android:text="Games database provided by TheGamesDB.net - an open, online database for video game fans." />
+
+    <TextView
+        android:id="@+id/hyperlinkDB"
+        android:layout_width="346dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="700dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="10dp"
+        android:text="http://thegamesdb.net" />
 
     <TextView
         android:id="@+id/totalGamesinDB"
@@ -121,9 +213,9 @@
         android:layout_below="@+id/registeredUsers"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="18dp"
-        android:layout_marginEnd="201dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="191dp"
         android:text="Total Games in Database:" />
 
 </RelativeLayout>

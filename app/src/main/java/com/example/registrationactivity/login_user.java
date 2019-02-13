@@ -35,6 +35,7 @@ public class login_user extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        this.getSupportActionBar().hide();
 
         sessionManager = new SessionManager(this);
 
@@ -75,12 +76,14 @@ public class login_user extends AppCompatActivity {
                                     JSONObject object = jsonArray.getJSONObject(i);
                                     String name = object.getString("name").trim();
                                     String email = object.getString("email").trim();
+                                    String id = object.getString("id").trim();
 
-                                    sessionManager.createSession(name,email);
+                                    sessionManager.createSession(name,email,id);
 
                                     Intent intent = new Intent(login_user.this, main_content.class);
                                     intent.putExtra("name", name);
                                     intent.putExtra("email", name);
+                                    intent.putExtra("id", id);
                                     startActivity(intent);
                                     finish();
                                 }

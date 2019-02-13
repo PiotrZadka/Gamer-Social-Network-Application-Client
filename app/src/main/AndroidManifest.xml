@@ -12,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".game_list"></activity>
+        <activity android:name=".chat" />
+        <activity android:name=".users_profiles" />
+        <activity android:name=".game_list" />
         <activity android:name=".main_content" />
         <activity android:name=".user_profile" />
         <activity android:name=".login_user" />

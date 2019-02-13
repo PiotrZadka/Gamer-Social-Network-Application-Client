@@ -1,4 +1,5 @@
 package com.example.registrationactivity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -20,7 +21,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 
 public class game_list extends AppCompatActivity {
@@ -28,7 +28,7 @@ public class game_list extends AppCompatActivity {
     ArrayList gamesArray = new ArrayList();
     ArrayList platformArray = new ArrayList();
     SearchView searchGame;
-    Button clickMe;
+    Button clickMe ,exitButton;
     ListView gameList;
     ArrayAdapter adapter;
 
@@ -41,11 +41,13 @@ public class game_list extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_list);
+        this.getSupportActionBar().hide();
 
         gameList = findViewById(R.id.gameList);
         clickMe = findViewById(R.id.retrieveGames);
         searchGame = findViewById(R.id.searchGame);
         searchGame.setQueryHint("Search game");
+        exitButton = findViewById(R.id.exitButton);
 
         clickMe.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,7 +64,13 @@ public class game_list extends AppCompatActivity {
             }
         });
 
-
+        exitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(game_list.this, main_content.class);
+                startActivity(intent);
+            }
+        });
     }
 
     // Browse online database for a specified game

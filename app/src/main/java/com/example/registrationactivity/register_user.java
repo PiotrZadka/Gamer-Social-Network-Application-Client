@@ -33,6 +33,7 @@ public class register_user extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        this.getSupportActionBar().hide();
 
         username = findViewById(R.id.emailLoginBox);
         email = findViewById(R.id.passwordLoginBox);
