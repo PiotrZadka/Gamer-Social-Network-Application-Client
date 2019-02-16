@@ -4,9 +4,9 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -26,49 +26,58 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class users_profiles extends AppCompatActivity {
+
+public class view_profile extends AppCompatActivity {
 
     Button exitButton;
-    ListView usersList;
+    EditText nameEdit, emailEdit;
+    ListView userListGames;
+    String user_id;
+    ArrayList collectionArray = new ArrayList();
     ArrayAdapter adapter;
-    ArrayList usersArray = new ArrayList();
-    String userId;
-    JSONArray usersArrayJson;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_users_profiles);
-        this.getSupportActionBar().hide();
+        setContentView(R.layout.activity_view_profile);
 
         exitButton = findViewById(R.id.exitButton);
-        usersList = findViewById(R.id.usersList);
+        nameEdit = findViewById(R.id.nameEdit);
+        emailEdit = findViewById(R.id.emailEdit);
+        userListGames = findViewById(R.id.userListGames);
 
-        retrieveUsers();
+
+        Intent intent = getIntent();
+        String listElement = intent.getStringExtra("element");
+        String usersJsonArray = intent.getStringExtra("usersArrayJson");
+
+        try{
+            JSONArray usersArray = new JSONArray(usersJsonArray);
+            JSONObject object = usersArray.getJSONObject(Integer.parseInt(listElement));
+            user_id = object.getString("id");
+            nameEdit.setText(object.getString("name"));
+            emailEdit.setText(object.getString("email"));
+
+        }catch(JSONException e){
+            System.out.print("ERROR"+e);
+        }
+
+        retrieveCollection(user_id);
 
         exitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(users_profiles.this, main_content.class);
+                Intent intent = new Intent(view_profile.this, users_profiles.class);
                 startActivity(intent);
             }
         });
 
-        usersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(users_profiles.this, view_profile.class);
-                intent.putExtra("usersArrayJson",usersArrayJson.toString());
-                intent.putExtra("element", String.valueOf(i));
-                startActivity(intent);
-            }
-        });
     }
 
-    private void retrieveUsers(){
+    private void retrieveCollection(String user_id){
 
-        final String URL_COLLECTION = "http://13.59.14.52/retrieveUsers.php";
+        final String searchID = user_id;
+        final String URL_COLLECTION = "http://13.59.14.52/retrieveGameCollection.php";
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_COLLECTION,
                 new Response.Listener<String>() {
@@ -77,36 +86,41 @@ public class users_profiles extends AppCompatActivity {
                         try{
                             JSONObject jsonObject = new JSONObject(response);
                             String success = jsonObject.getString("success");
-                            JSONArray jsonArray = jsonObject.getJSONArray("users");
-                            usersArrayJson = jsonArray;
+                            JSONArray jsonArray = jsonObject.getJSONArray("collection");
 
                             if(success.equals("1")){
                                 // Populate list view
                                 for(int i = 0; i<jsonArray.length(); i++){
                                     JSONObject object = jsonArray.getJSONObject(i);
-                                    userId = object.getString("id").trim();
-                                    String userName = object.getString("name").trim();
-                                    String userEmail = object.getString("email").trim();
-                                    usersArray.add(userName+" "+userEmail);
+                                    String gameName = object.getString("game_name").trim();
+                                    collectionArray.add(gameName);
                                 }
 
-                                adapter = new ArrayAdapter(users_profiles.this,android.R.layout.simple_dropdown_item_1line,usersArray);
-                                usersList.setAdapter(adapter);
+                                adapter = new ArrayAdapter(view_profile.this,android.R.layout.simple_dropdown_item_1line,collectionArray);
+                                userListGames.setAdapter(adapter);
                                 adapter.notifyDataSetChanged();
 
                             }
                         }catch(JSONException e){
                             System.out.print(e);
-                            Toast.makeText(users_profiles.this,"Error "+e, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(view_profile.this,"Error "+e, Toast.LENGTH_SHORT).show();
                         }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(users_profiles.this,"Error "+error, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(view_profile.this,"Error "+error, Toast.LENGTH_SHORT).show();
                     }
-                });
+                })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("id",searchID);
+                return params;
+            }
+        };
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);

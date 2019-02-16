@@ -12,6 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".view_profile"></activity>
         <activity android:name=".chat" />
         <activity android:name=".users_profiles" />
         <activity android:name=".game_list" />

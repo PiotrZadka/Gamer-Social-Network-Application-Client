@@ -155,7 +155,6 @@ public class user_profile extends AppCompatActivity {
                             JSONObject jsonObject = new JSONObject(response);
                             String success = jsonObject.getString("success");
                             JSONArray jsonArray = jsonObject.getJSONArray("collection");
-                            System.out.print("@@@@@@@@@@@"+jsonArray);
 
                             if(success.equals("1")){
                                 // Populate list view
@@ -168,7 +167,6 @@ public class user_profile extends AppCompatActivity {
                                 adapter = new ArrayAdapter(user_profile.this,android.R.layout.simple_dropdown_item_1line,collectionArray);
                                 collectionList.setAdapter(adapter);
                                 adapter.notifyDataSetChanged();
-                                System.out.println(collectionArray);
 
                             }
                         }catch(JSONException e){
