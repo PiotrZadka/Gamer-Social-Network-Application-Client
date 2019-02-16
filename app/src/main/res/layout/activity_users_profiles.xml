@@ -8,17 +8,37 @@
 
     <TextView
         android:id="@+id/textView2"
+        android:layout_width="139dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="41dp"
+        android:layout_marginEnd="140dp"
+        android:text="Users"
+        android:gravity="center"
+        android:textSize="24sp" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="562dp"
+        android:layout_below="@+id/textView2"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="0dp" />
+
+    <Button
+        android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="124dp"
-        android:layout_marginTop="321dp"
-        android:layout_marginEnd="127dp"
-        android:layout_marginBottom="391dp"
-        android:text="Placeholder User Profiles"
-        tools:layout_editor_absoluteX="125dp"
-        tools:layout_editor_absoluteY="245dp" />
+        android:layout_marginStart="160dp"
+        android:layout_marginTop="668dp"
+        android:layout_marginEnd="160dp"
+        android:text="Exit" />
 </RelativeLayout>

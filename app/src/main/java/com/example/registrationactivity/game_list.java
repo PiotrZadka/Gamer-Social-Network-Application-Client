@@ -57,7 +57,10 @@ public class game_list extends AppCompatActivity {
         searchGame = findViewById(R.id.searchGame);
         searchGame.setQueryHint("Search game");
         exitButton = findViewById(R.id.exitButton);
+
         sessionManager = new SessionManager(this);
+        HashMap<String, String> user = sessionManager.getUserDetails();
+        final String user_id = user.get(sessionManager.ID);
 
         clickMe.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,12 +85,14 @@ public class game_list extends AppCompatActivity {
             }
         });
 
-        gameList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        gameList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                addGameToCollection();
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+
                 String content = gameList.getItemAtPosition(i).toString();
-                Toast.makeText(getApplicationContext(), content, Toast.LENGTH_SHORT).show();
+                addGameToCollection(user_id, content);
+
+                return false;
             }
         });
     }
@@ -128,7 +133,6 @@ public class game_list extends AppCompatActivity {
                                 gamesArray.add(game_title.getString("game_title")+", "+getPlatformName(platformID));
                             }
 
-                            System.out.println(gameDetails);
                             adapter = new ArrayAdapter(game_list.this,android.R.layout.simple_dropdown_item_1line,gamesArray);
                             gameList.setAdapter(adapter);
                             adapter.notifyDataSetChanged();
@@ -211,10 +215,11 @@ public class game_list extends AppCompatActivity {
         return platformArray;
     }
 
-    private void addGameToCollection(){
-        HashMap<String, String> user = sessionManager.getUserDetails();
-        final String id = user.get(sessionManager.ID);
+    private void addGameToCollection(String user_id, String content){
         String URL_DETAILS = "http://13.59.14.52/addGame.php";
+        final String id = user_id;
+
+        final String game_details = content;
 
         StringRequest request = new StringRequest(Request.Method.POST, URL_DETAILS,
                 new Response.Listener<String>() {
@@ -230,7 +235,7 @@ public class game_list extends AppCompatActivity {
 
                         }catch (JSONException e){
                             System.out.println(e);
-                            Toast.makeText(game_list.this,"Error adding game!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(game_list.this,"Error: "+e, Toast.LENGTH_LONG).show();
                         }
                     }
                 },
@@ -245,6 +250,7 @@ public class game_list extends AppCompatActivity {
 
                 Map<String, String> params = new HashMap<>();
                 params.put("id", id);
+                params.put("game_details", game_details);
                 return params;
             }
         };
