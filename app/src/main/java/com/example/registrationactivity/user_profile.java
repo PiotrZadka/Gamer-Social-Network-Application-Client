@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,6 +38,7 @@ public class user_profile extends AppCompatActivity {
     ListView collectionList;
     ArrayAdapter adapter;
     ArrayList collectionArray = new ArrayList();
+    ArrayList collectionArrayDelete = new ArrayList();
 
     private static String URL = "http://13.59.14.52/editUserDetails.php";
 
@@ -92,6 +94,33 @@ public class user_profile extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(user_profile.this, main_content.class);
                 startActivity(intent);
+            }
+        });
+
+        collectionList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                int game_position = (int)l;
+
+                try{
+                    JSONObject jsonObject = new JSONObject(collectionArrayDelete.get(game_position).toString());
+                    String game_id = jsonObject.getString("game_id");
+                    removeGame(id, game_id);
+
+                    collectionArrayDelete.remove(game_position);
+                    adapter.remove(adapter.getItem((int)l));
+                    adapter.notifyDataSetChanged();
+
+                    Toast.makeText(user_profile.this, "Game Deleted", Toast.LENGTH_SHORT).show();
+                }catch (JSONException e){
+                    Toast.makeText(user_profile.this,e.toString(), Toast.LENGTH_SHORT).show();
+                }
+
+
+                //removeGame(id, game_id);
+                //collectionArrayDelete.remove(l);
+                return false;
             }
         });
 
@@ -162,6 +191,7 @@ public class user_profile extends AppCompatActivity {
                                     JSONObject object = jsonArray.getJSONObject(i);
                                     String gameName = object.getString("game_name").trim();
                                     collectionArray.add(gameName);
+                                    collectionArrayDelete.add(object);
                                 }
 
                                 adapter = new ArrayAdapter(user_profile.this,android.R.layout.simple_dropdown_item_1line,collectionArray);
@@ -186,6 +216,49 @@ public class user_profile extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError{
                 Map<String, String> params = new HashMap<>();
                 params.put("id",user_id);
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
+
+    private void removeGame(String user_id, String game_id){
+
+        String REMOVE_URL = "http://13.59.14.52/removeGame.php";
+        final String u_id = user_id;
+        final String g_id = game_id;
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, REMOVE_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try{
+                            JSONObject jsonObject = new JSONObject(response);
+                            String success = jsonObject.getString("success");
+
+                            if(success.equals("1")){
+                                //remove game from list
+                            }
+                        }catch(JSONException e){
+                            System.out.print(e);
+                            Toast.makeText(user_profile.this,"Error "+e, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(user_profile.this,"Error "+error, Toast.LENGTH_SHORT).show();
+                    }
+                })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError{
+                Map<String, String> params = new HashMap<>();
+                params.put("id",u_id);
+                params.put("game_id",g_id);
                 return params;
             }
         };
