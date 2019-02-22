@@ -9,6 +9,27 @@
 
     <ListView
         android:id="@+id/topicsListView"
+        android:layout_width="match_parent"
+        android:layout_height="671dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="0dp" />
+
+    <TextView
+        android:id="@+id/textView3"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="265dp"
+        android:gravity="left"
+        android:text="Chat rooms"
+        android:textSize="24sp" />
+
 </RelativeLayout>

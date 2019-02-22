@@ -34,6 +34,8 @@ public class main_content extends AppCompatActivity {
     ImageView gameList,userProfile, usersProfiles, chatImage;
     String getId;
     TextView hyperlinkDB;
+    TextView registeredUsersCount;
+    TextView totalGamesCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +54,10 @@ public class main_content extends AppCompatActivity {
         chatImage = findViewById(R.id.chatImage);
         hyperlinkDB = findViewById(R.id.hyperlinkDB);
 
+        registeredUsersCount = findViewById(R.id.registeredUsersNumber);
+        totalGamesCount = findViewById(R.id.totalGamesNumber);
+        countUsers();
+
         HashMap<String, String> user = sessionManager.getUserDetails();
         getId = user.get(sessionManager.ID);
 
@@ -59,6 +65,7 @@ public class main_content extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 sessionManager.logout();
+                Toast.makeText(main_content.this, "User '"+usernameWelcome.getText()+"' logged out", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -139,6 +146,41 @@ public class main_content extends AppCompatActivity {
                 return params;
             }
         };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+
+    }
+
+    private void countUsers(){
+
+        String URL_COUNT = "http://13.59.14.52/countUsers.php";
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_COUNT,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try{
+                            JSONObject jsonObject = new JSONObject(response);
+                            String success = jsonObject.getString("success");
+                            String userCount = jsonObject.getString("count");
+
+                            if(success.equals("1")){
+                                registeredUsersCount.setText(userCount);
+                            }
+                        }catch (JSONException e){
+                            System.out.print(e);
+
+                            Toast.makeText(main_content.this,"Error "+e.toString(),Toast.LENGTH_SHORT);
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.print(error);
+                        Toast.makeText(main_content.this,"Error "+error.toString(),Toast.LENGTH_SHORT);
+                    }
+                });
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);

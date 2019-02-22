@@ -1,10 +1,13 @@
 package com.example.registrationactivity;
 
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,9 +20,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -56,7 +60,15 @@ public class topics extends AppCompatActivity {
 
         dbr = FirebaseDatabase.getInstance().getReference().child(topicName);
 
-        adapter = new ArrayAdapter(topics.this, android.R.layout.simple_dropdown_item_1line, chatList);
+        adapter = new ArrayAdapter(topics.this, android.R.layout.simple_dropdown_item_1line, chatList){
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                ((TextView)view).setSingleLine(false);
+                return view;
+            }
+        };
+
         chatBoard.setAdapter(adapter);
 
         sendButton.setOnClickListener(new View.OnClickListener() {
@@ -104,12 +116,13 @@ public class topics extends AppCompatActivity {
 
     public void updateConversation(DataSnapshot dataSnapshot){
         String msg, user, conversation;
+        Date currentTime = Calendar.getInstance().getTime();
         Iterator i = dataSnapshot.getChildren().iterator();
 
         while(i.hasNext()){
             msg = ((DataSnapshot)i.next()).getValue().toString();
             user = ((DataSnapshot)i.next()).getValue().toString();
-            conversation = user + ": "+msg;
+            conversation = user + "@"+currentTime+":\n"+msg;
             adapter.insert(conversation, 0);
             adapter.notifyDataSetChanged();
         }

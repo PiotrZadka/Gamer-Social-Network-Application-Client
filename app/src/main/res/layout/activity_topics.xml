@@ -9,10 +9,10 @@
     <ListView
         android:id="@+id/chatListView"
         android:layout_width="match_parent"
-        android:layout_height="578dp"
+        android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="60dp"
         android:layout_marginBottom="90dp" />
 
     <Button

@@ -3,8 +3,12 @@ package com.example.registrationactivity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -25,6 +29,7 @@ public class register_user extends AppCompatActivity {
 
     private EditText username, password, c_password, email;
     private Button regButton;
+    private CheckBox showPassword;
     private static String URL_REG = "http://13.59.14.52/register.php";
 
 
@@ -40,12 +45,28 @@ public class register_user extends AppCompatActivity {
         password = findViewById(R.id.passwordBox);
         c_password = findViewById(R.id.passwordConfirmBox);
         regButton = findViewById(R.id.loginButton);
+        showPassword = findViewById(R.id.showPassword);
 
         regButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 System.out.print("Registering");
                 Register();
+            }
+        });
+
+        showPassword.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if(!isChecked){
+                    // show password
+                    password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    c_password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
+                else{
+                    password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    c_password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                }
             }
         });
 

@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".register_user">
 
+    <CheckBox
+        android:id="@+id/showPassword"
+        android:layout_width="156dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="99dp"
+        android:layout_marginTop="435dp"
+        android:layout_marginEnd="156dp"
+        android:text="Show Password" />
+
     <EditText
         android:id="@+id/emailLoginBox"
         android:layout_width="wrap_content"
@@ -46,7 +58,7 @@
         android:layout_marginEnd="99dp"
         android:ems="10"
         android:hint="Password"
-        android:inputType="textPersonName" />
+        android:inputType="textPassword" />
 
     <TextView
         android:id="@+id/textView4"
@@ -99,6 +111,6 @@
         android:layout_marginEnd="99dp"
         android:ems="10"
         android:hint="Confirm Password"
-        android:inputType="textPersonName" />
+        android:inputType="textPassword" />
 
 </RelativeLayout>

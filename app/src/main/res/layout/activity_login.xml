@@ -33,7 +33,7 @@
         android:layout_marginEnd="100dp"
         android:ems="10"
         android:hint="Password"
-        android:inputType="textPersonName" />
+        android:inputType="textPassword" />
 
     <TextView
         android:id="@+id/loginLabel"
@@ -73,6 +73,18 @@
         android:clickable="true"
         android:onClick="returnRegister"
         android:text="Not a user? Register" />
+
+    <CheckBox
+        android:id="@+id/showPassword"
+        android:layout_width="156dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="97dp"
+        android:layout_marginTop="281dp"
+        android:layout_marginEnd="158dp"
+        android:text="Show Password" />
 
 </RelativeLayout>
 
