@@ -80,6 +80,8 @@ public class login_user extends AppCompatActivity {
         });
     }
 
+
+    // Login to application
     private void Login(final String email, final String password){
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_LOGIN,
                 new Response.Listener<String>() {

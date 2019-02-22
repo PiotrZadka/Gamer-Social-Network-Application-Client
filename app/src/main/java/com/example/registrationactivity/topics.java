@@ -1,11 +1,9 @@
 package com.example.registrationactivity;
 
-import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -28,6 +26,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+
+// This class handles messaging between users via Firebase
 public class topics extends AppCompatActivity {
 
     Button sendButton;
@@ -60,6 +60,8 @@ public class topics extends AppCompatActivity {
 
         dbr = FirebaseDatabase.getInstance().getReference().child(topicName);
 
+
+        // Editing ListView item to allow wrapping text
         adapter = new ArrayAdapter(topics.this, android.R.layout.simple_dropdown_item_1line, chatList){
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
@@ -86,6 +88,8 @@ public class topics extends AppCompatActivity {
             }
         });
 
+
+        // Event listener for Firebase object to handle messaging requests
         dbr.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -114,6 +118,8 @@ public class topics extends AppCompatActivity {
         });
     }
 
+
+    // Update chat with new messages + formating
     public void updateConversation(DataSnapshot dataSnapshot){
         String msg, user, conversation;
         Date currentTime = Calendar.getInstance().getTime();

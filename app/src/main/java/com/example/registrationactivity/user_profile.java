@@ -127,6 +127,7 @@ public class user_profile extends AppCompatActivity {
 
     }
 
+    // Saving edited profile settings
     private void saveChanges(String name, String email, String id){
         final String sName = name;
         final String sEmail = email;
@@ -171,6 +172,8 @@ public class user_profile extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
+
+    // Retrieving game list from database
     private void retrieveCollection(String id){
 
         final String user_id = id;

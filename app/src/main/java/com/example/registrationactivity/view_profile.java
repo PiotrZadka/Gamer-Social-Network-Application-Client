@@ -76,6 +76,8 @@ public class view_profile extends AppCompatActivity {
 
     }
 
+
+    // Retrieving collection of games per profile
     private void retrieveCollection(String user_id){
 
         final String searchID = user_id;

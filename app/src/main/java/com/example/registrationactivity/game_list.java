@@ -181,6 +181,7 @@ public class game_list extends AppCompatActivity {
         return name;
     }
 
+    //Retrieve gaming platform id's
     private ArrayList getGamePlatforms(){
         String URL = "https://api.thegamesdb.net/Platforms?apikey="+API_KEY;
         StringRequest stringRequest = new StringRequest(Request.Method.GET, URL,
@@ -222,6 +223,7 @@ public class game_list extends AppCompatActivity {
         return platformArray;
     }
 
+    // Adding game to user profile in DB
     private void addGameToCollection(String user_id, String content){
         String URL_DETAILS = "http://13.59.14.52/addGame.php";
         final String id = user_id;

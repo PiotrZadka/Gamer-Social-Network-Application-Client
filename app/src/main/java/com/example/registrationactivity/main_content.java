@@ -37,6 +37,8 @@ public class main_content extends AppCompatActivity {
     TextView registeredUsersCount;
     TextView totalGamesCount;
 
+
+    // Main view of app
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +58,11 @@ public class main_content extends AppCompatActivity {
 
         registeredUsersCount = findViewById(R.id.registeredUsersNumber);
         totalGamesCount = findViewById(R.id.totalGamesNumber);
+
+        totalGamesCount.setText("112,906");
+        // https://thegamesdb.net/ doesn't provide sufficent API to retrieve total count(*).
+        // In order to retrieve this I had to clone their database to my own and do Select count(*) from "databaseName".
+
         countUsers();
 
         HashMap<String, String> user = sessionManager.getUserDetails();

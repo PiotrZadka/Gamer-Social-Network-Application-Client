@@ -7,6 +7,11 @@ import android.widget.Toast;
 
 import java.util.HashMap;
 
+
+// This class keeps logged user details per session so there is no need to query database every time to retrieve user details.
+// Details are wiped upon logout.
+
+
 public class SessionManager {
 
     SharedPreferences sharedPreferences;

@@ -72,6 +72,8 @@ public class register_user extends AppCompatActivity {
 
     }
 
+
+    // Registration to app
     private void Register(){
         regButton.setVisibility(View.GONE);
 
