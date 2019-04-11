@@ -41,8 +41,7 @@ public class game_list extends AppCompatActivity {
     SessionManager sessionManager;
 
     // API FOR -> https://api.thegamesdb.net/key.php
-    //String API_KEY = "ede83ff4569068653e175443c7380a8745cb63db71f81d3facbb09ada726eb39";  // PUBLIC
-    String API_KEY = "eb8118a629a5c370b1ec29b2a9c6b24730daa44219efdc56756425747ba195fd"; // PRIVATE
+    String API_KEY = "insert api here"; // PRIVATE
 
 
 
